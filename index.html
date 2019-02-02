@@ -46,29 +46,58 @@
 
 <div class="tab-content">
   <div id="practice" class="tab-pane fade in active">
-    <h3>HOME</h3>
-    <p>Some content.</p>
+	
+	<div id="controls">
+	  <button class='btn btn-primary' id='start-btn'>Start</button>
+	  <button class='btn' id='right-answer'>Right Answer</button>
+	</div>
+	<div id="container">
+	  <div id="VexFlow"></div>
+	</div>
+
   </div>
+
+
   <div id="settings" class="tab-pane fade">
-    <h3>Menu 1</h3>
-    <p>Some content in menu 1.</p>
+  	<div>
+	  	<label>Clef:</label>	
+	    <div class="btn-group btn-group-toggle" data-toggle="buttons">
+
+		  <label class="btn btn-secondary active">
+		    <input type="radio" name="options" id="option1" autocomplete="off" checked> G-Clef
+		  </label>
+		  <label class="btn btn-secondary">
+		    <input type="radio" name="options" id="option2" autocomplete="off"> F-Clef
+		  </label>
+
+		</div>
+	</div>
+
+	<div>
+		<label>Hand:</label>	
+	    <div class="btn-group btn-group-toggle" data-toggle="buttons">
+
+		  <label class="btn btn-secondary active">
+		    <input type="radio" name="options" id="option1" autocomplete="off" checked> Right Hand 
+		  </label>
+		  <label class="btn btn-secondary">
+		    <input type="radio" name="options" id="option2" autocomplete="off"> Left Hand
+		  </label>
+		  <label class="btn btn-secondary">
+		    <input type="radio" name="options" id="option2" autocomplete="off"> Both
+		  </label>
+
+		</div>
+	</div>
+
+
   </div>
+
+
+
+
 </div>
 
-
-
-<div id="controls">
-  <button class='btn btn-primary' id='start-btn'>Start</button>
-  <button class='btn' id='right-answer'>Right Answer</button>
-</div>
-<div id="container">
-  <div id="VexFlow"></div>
-</div>
-
-<script type="text/javascript">
-
-
-</script>
 
  <script type="text/javascript" src="/static/note-renderer.js"></script>
 
