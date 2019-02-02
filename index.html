@@ -20,25 +20,58 @@
 	 <script type="text/javascript" src="/static/vexflow-debug.js"></script>
 
 	 <link rel="stylesheet" href="/static/style.css"/>
+	 <link href="/static/bootstrap/css/bootstrap.min.css" rel="stylesheet" media="screen">
 
 </head>
 <body>
 
-<div id="container">
-  <div id="boo"></div>
-</div>
-<div id="controls">
-  <button id='start-btn'>Start</button>
-  <button id='right-answer'>Right Answer</button>
+<div class="navbar navbar-inverse">
+  <div class="navbar-inner">
+    <a class="brand" href="#">Sight Read Tutor</a>
+    <!-- <ul class="nav">
+      <li class="active"><a href="/">Practice</a></li>
+      <li><a href="/settings">Settings</a></li>
+    </ul> -->
+  </div>
 </div>
 
+<ul class="nav nav-tabs">
+  <li class="active"><a data-toggle="tab" href="#home">Home</a></li>
+  <li><a data-toggle="tab" href="#menu1">Menu 1</a></li>
+  <li><a data-toggle="tab" href="#menu2">Menu 2</a></li>
+</ul>
+
+<div class="tab-content">
+  <div id="home" class="tab-pane fade in active">
+    <h3>HOME</h3>
+    <p>Some content.</p>
+  </div>
+  <div id="menu1" class="tab-pane fade">
+    <h3>Menu 1</h3>
+    <p>Some content in menu 1.</p>
+  </div>
+  <div id="menu2" class="tab-pane fade">
+    <h3>Menu 2</h3>
+    <p>Some content in menu 2.</p>
+  </div>
+</div>
+
+
+
+<div id="controls">
+  <button class='btn btn-primary' id='start-btn'>Start</button>
+  <button class='btn' id='right-answer'>Right Answer</button>
+</div>
+<div id="container">
+  <div id="VexFlow"></div>
+</div>
 <script type="text/javascript">
 	
 // Basic setup boilerplate for using VexFlow with the SVG rendering context:
 VF = Vex.Flow;
 
 // Create an SVG renderer and attach it to the DIV element named "boo".
-var div = document.getElementById("boo")
+var div = document.getElementById("VexFlow")
 var renderer = new VF.Renderer(div, VF.Renderer.Backends.SVG);
 
 // Configure the rendering context.

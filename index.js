@@ -6,8 +6,11 @@ app.use('/static', express.static('public'));
 //app.use('/static', express.static(path.join(__dirname, 'public')))
 
 app.get('/', function (req, res) {
-
    res.sendFile( __dirname + "/" + "index.html" );
+})
+
+app.get('/settings', function (req, res) {
+   res.sendFile( __dirname + "/" + "settings.html" );
 })
 
 var server = app.listen(8081, function () {
