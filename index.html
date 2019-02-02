@@ -94,8 +94,6 @@ voice.draw(context, stave);
 
 </script>
 
-<div id="test"/>
-
 
 
 <div id="osmdCanvas"/>
@@ -156,7 +154,7 @@ After Script
   <div id="boo"></div>
 </div>
 <div id="controls">
-  <button id='add-note'>Add Note</button>
+  <button id='start-btn'>Start</button>
   <button id='right-answer'>Right Answer</button>
 </div>
 
@@ -247,10 +245,37 @@ tickContext.preFormat().setX(400);
 // TODO: Add sound effects.
 const visibleNoteGroups = [];
 
+note_values = ['a','b','c','d','e','f','g']
+accidental_values = ['', '#', 'b', 'bb',]
+octaves = ['4','5']
+
 // Add a note to the staff from the notes array (if there are any left).
-document.getElementById('add-note').addEventListener('click', (e) => {
-	note = notes.shift();
-	if(!note) return;
+document.getElementById('start-btn').addEventListener('click', (e) => {
+
+	setInterval(function(){ 
+
+		var letter = note_values[Math.floor(Math.random()*note_values.length)];
+	var accidental = accidental_values[Math.floor(Math.random()*accidental_values.length)];
+	var octave = octaves[Math.floor(Math.random()*octaves.length)];
+
+	console.log(letter, accidental,octave);
+
+ 	var note = new VF.StaveNote({
+ 		clef: "treble", keys: [letter+accidental+'/'+octave], duration: "4" 
+ 	});
+      
+      if (accidental != "") {
+      	note.addAccidental(0, new VF.Accidental(accidental))
+      }
+
+      note.setContext(context).setStave(stave);
+
+      tickContext.addTickable(note)
+
+      console.log(note);
+	tickContext.preFormat().setX(400);
+	// note = notes.shift();
+	// if(!note) return;
   const group = context.openGroup();
   visibleNoteGroups.push(group);
 	note.draw();
@@ -273,7 +298,11 @@ document.getElementById('add-note').addEventListener('click', (e) => {
 		if(index === -1) return;
 		group.classList.add('too-slow');
     visibleNoteGroups.shift();
-	}, 5000);
+	}, 5000); // 5000 is the time 
+
+
+	}, 2000);
+
 });
 
 // If a user plays/identifies the note in time, send it up to note heaven.
