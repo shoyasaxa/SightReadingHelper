@@ -24,132 +24,6 @@
 </head>
 <body>
 
-Hello from index.html
-
-
-<div id="vexflow-id"></div>
-
-<script type="text/javascript">
-	VF = Vex.Flow;
-
-// We created an object to store the information about the workspace
-var WorkspaceInformation = {
-    // The div in which you're going to work
-    div: document.getElementById("vexflow-id"),
-    // Vex creates a svg with specific dimensions
-    canvasWidth: 500,
-    canvasHeight: 500
-};
-
-// Create a renderer with SVG
-var renderer = new VF.Renderer(
-    WorkspaceInformation.div,
-    VF.Renderer.Backends.SVG
-);
-
-// Use the renderer to give the dimensions to the SVG
-renderer.resize(WorkspaceInformation.canvasWidth, WorkspaceInformation.canvasHeight);
-
-// Expose the context of the renderer
-var context = renderer.getContext();
-
-// And give some style to our SVG
-context.setFont("Arial", 10, "").setBackgroundFillStyle("#eed");
-
-
-/**
- * Creating a new stave
- */
-// Create a stave of width 400 at position x10, y40 on the SVG.
-var stave = new VF.Stave(10, 40, 400);
-// Add a clef and time signature.
-stave.addClef("treble").addTimeSignature("4/4");
-// Set the context of the stave our previous exposed context and execute the method draw !
-stave.setContext(context).draw();
-
-var notes = [
-  // A quarter-note C.
-  new VF.StaveNote({clef: "treble", keys: ["c/4"], duration: "q" }),
-
-  // A quarter-note D.
-  new VF.StaveNote({clef: "treble", keys: ["d/4"], duration: "q" }),
-
-  // A quarter-note rest. Note that the key (b/4) specifies the vertical
-  // position of the rest.
-  new VF.StaveNote({clef: "treble", keys: ["b/4"], duration: "qr" }),
-
-  // A C-Major chord.
-  new VF.StaveNote({clef: "treble", keys: ["c/4", "e/4", "g/4"], duration: "q" })
-];
-
-// Create a voice in 4/4 and add above notes
-var voice = new VF.Voice({num_beats: 4,  beat_value: 4});
-voice.addTickables(notes);
-
-// Format and justify the notes to 400 pixels.
-var formatter = new VF.Formatter().joinVoices([voice]).format([voice], 400);
-
-// Render voice
-voice.draw(context, stave);
-
-</script>
-
-
-
-<div id="osmdCanvas"/>
-
-<script>
-    var container = document.getElementById("osmdCanvas");
-    var osmd = new OpenSheetMusicDisplay(container);
-
-    var musicXMLString = `<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-    <!DOCTYPE score-partwise PUBLIC
-        "-//Recordare//DTD MusicXML 3.1 Partwise//EN"
-        "http://www.musicxml.org/dtds/partwise.dtd">
-    <score-partwise version="3.1">
-      <part-list>
-        <score-part id="P1">
-          <part-name>Music</part-name>
-        </score-part>
-      </part-list>
-      <part id="P1">
-        <measure number="1">
-          <attributes>
-            <divisions>1</divisions>
-            <key>
-              <fifths>0</fifths>
-            </key>
-            <time>
-              <beats>4</beats>
-              <beat-type>4</beat-type>
-            </time>
-            <clef>
-              <sign>G</sign>
-              <line>2</line>
-            </clef>
-          </attributes>
-          <note>
-            <pitch>
-              <step>C</step>
-              <octave>4</octave>
-            </pitch>
-            <duration>4</duration>
-            <type>whole</type>
-          </note>
-        </measure>
-      </part>
-    </score-partwise>`;
-
-    $("#test").text(musicXMLString);
-
-    osmd.load(musicXMLString);
-    container.style.width = "720px";
-    osmd.render();
-</script>
-
-After Script
-
-
 <div id="container">
   <div id="boo"></div>
 </div>
@@ -194,50 +68,50 @@ stave.setContext(context).draw();
 
 var durations = ['8', '4', '2', '1'];
 
-var notes = [
-	['c', '#', '4'],
-	['e', 'b', '5'],
-	['g', '', '5'],
-	['d', 'b', '4'],
-	['b', 'bb', '3'],
-	['a', 'b', '4'],
-	['f', 'b', '5'],
-].map(([letter, acc, octave]) => {
-	const note = new VF.StaveNote({
-    clef: 'treble',
-    keys: [`${letter}${acc}/${octave}`],
-    duration: durations[Math.floor(Math.random()*durations.length)],
-  })
-  .setContext(context)
-  .setStave(stave);
+// var notes = [
+// 	['c', '#', '4'],
+// 	['e', 'b', '5'],
+// 	['g', '', '5'],
+// 	['d', 'b', '4'],
+// 	['b', 'bb', '3'],
+// 	['a', 'b', '4'],
+// 	['f', 'b', '5'],
+// ].map(([letter, acc, octave]) => {
+// 	const note = new VF.StaveNote({
+//     clef: 'treble',
+//     keys: [`${letter}${acc}/${octave}`],
+//     duration: durations[Math.floor(Math.random()*durations.length)],
+//   })
+//   .setContext(context)
+//   .setStave(stave);
 
-  // If a StaveNote has an accidental, we must render it manually.
-  // This is so that you get full control over whether to render
-  // an accidental depending on the musical context. Here, if we
-  // have one, we want to render it. (Theoretically, we might
-  // add logic to render a natural sign if we had the same letter
-  // name previously with an accidental. Or, perhaps every twelfth
-  // note or so we might render a natural sign randomly, just to be
-  // sure our user who's learning to read accidentals learns
-  // what the natural symbol means.)
-  if(acc) note.addAccidental(0, new VF.Accidental(acc));
-	tickContext.addTickable(note)
-	return note;
-});
+//   // If a StaveNote has an accidental, we must render it manually.
+//   // This is so that you get full control over whether to render
+//   // an accidental depending on the musical context. Here, if we
+//   // have one, we want to render it. (Theoretically, we might
+//   // add logic to render a natural sign if we had the same letter
+//   // name previously with an accidental. Or, perhaps every twelfth
+//   // note or so we might render a natural sign randomly, just to be
+//   // sure our user who's learning to read accidentals learns
+//   // what the natural symbol means.)
+//   if(acc) note.addAccidental(0, new VF.Accidental(acc));
+// 	tickContext.addTickable(note)
+// 	return note;
+// });
 
-// The tickContext.preFormat() call assigns x-values (and other
-// formatting values) to notes. It must be called after we've 
-// created the notes and added them to the tickContext. Or, it
-// can be called each time a note is added, if the number of 
-// notes needed is not known at the time of bootstrapping.
-//
-// To see what happens if you put it in the wrong place, try moving
-// this line up to where the TickContext is initialized, and check
-// out the error message you get.
-//
-// tickContext.setX() establishes the left-most x position for all
-// of the 'tickables' (notes, etc...) in a context.
-tickContext.preFormat().setX(400);
+// // The tickContext.preFormat() call assigns x-values (and other
+// // formatting values) to notes. It must be called after we've 
+// // created the notes and added them to the tickContext. Or, it
+// // can be called each time a note is added, if the number of 
+// // notes needed is not known at the time of bootstrapping.
+// //
+// // To see what happens if you put it in the wrong place, try moving
+// // this line up to where the TickContext is initialized, and check
+// // out the error message you get.
+// //
+// // tickContext.setX() establishes the left-most x position for all
+// // of the 'tickables' (notes, etc...) in a context.
+// tickContext.preFormat().setX(400);
 
 // This will contain any notes that are currently visible on the staff,
 // before they've either been answered correctly, or plumetted off
@@ -248,6 +122,10 @@ const visibleNoteGroups = [];
 note_values = ['a','b','c','d','e','f','g']
 accidental_values = ['', '#', 'b', 'bb',]
 octaves = ['4','5']
+
+
+
+
 
 // Add a note to the staff from the notes array (if there are any left).
 document.getElementById('start-btn').addEventListener('click', (e) => {
