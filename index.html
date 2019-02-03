@@ -26,28 +26,48 @@
 
 	 <!-- <script type="text/javascript" src="/static/note-renderer.js"></script> -->
 
-</head>
-<body>
+	</head>
+<body >
 
-<div class="navbar navbar-inverse">
-  <div class="navbar-inner">
-    <a class="brand" href="#">Sight Read Tutor</a>
-    <!-- <ul class="nav">
-      <li class="active"><a href="/">Practice</a></li>
-      <li><a href="/settings">Settings</a></li>
-    </ul> -->
-  </div>
-</div>
+
+
+	<div class="navbar navbar-inverse">
+	  <div class="navbar-inner">
+	    <a class="brand" href="#">Sight Read Tutor</a>
+	    <!-- <ul class="nav">
+	      <li class="active"><a href="/">Practice</a></li>
+	      <li><a href="/settings">Settings</a></li>
+	    </ul> -->
+	  </div>
+	</div>
 
 	
+	<div id="everything" style="width: 960px; margin: 0 auto;"> 
+
 	<div id="controls">
 	  <button class='btn btn-primary' id='start-btn'>Start</button>
 	  <button class='btn' id='stop-game'>Stop</button>
 	</div>
 
 
-	<div id="correct">0</div>
-	<div id="wrong">0</div>
+	<table class="table" style="max-width: 500px;">
+
+	  <tbody>
+	    <tr>
+	      <th scope="row">Correct</th>
+	      <td id="correct">0</td>
+	    </tr>
+	    <tr>
+	      <th scope="row">Wrong</th>
+	      <td id="wrong">0</td>
+	    </tr>
+	  </tbody>
+	</table>
+	 
+	<!-- <div id="correct">0</div>
+	
+	
+	<div id="wrong">0</div> -->
 
 
 	<div id="container">
@@ -55,7 +75,7 @@
 	</div>
 
 
-
+ </div>
 
 </div>
 
