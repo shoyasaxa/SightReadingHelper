@@ -107,7 +107,7 @@ document.getElementById('start-btn').addEventListener('click', (e) => {
   });
 
 
-	}, 3000);
+	}, 2000);
 
 });
 
