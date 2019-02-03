@@ -111,21 +111,3 @@ document.getElementById('start-btn').addEventListener('click', (e) => {
 
 });
 
-// If a user plays/identifies the note in time, send it up to note heaven.
-document.getElementById('right-answer').addEventListener('click', (e) => {
-	group = visibleNoteGroups.shift();
-  group.classList.add('correct');
-  notesOnScreen.shift();
-	// The note will be somewhere in the middle of its move to the left -- by
-  // getting its computed style we find its x-position, freeze it there, and
-  // then send it straight up to note heaven with no horizontal motion.
-	const transformMatrix = window.getComputedStyle(group).transform;
-  // transformMatrix will be something like 'matrix(1, 0, 0, 1, -118, 0)'
-  // where, since we're only translating in x, the 4th property will be
-  // the current x-translation. You can dive into the gory details of
-  // CSS3 transform matrices (along with matrix multiplication) if you want
-  // at http://www.useragentman.com/blog/2011/01/07/css3-matrix-transform-for-the-mathematically-challenged/
-	const x = transformMatrix.split(',')[4].trim();
-	// And, finally, we set the note's style.transform property to send it skyward.
-	group.style.transform = `translate(${x}px, -800px)`;
-})
