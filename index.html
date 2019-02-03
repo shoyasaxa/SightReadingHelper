@@ -50,6 +50,7 @@
 	<div id="controls">
 	  <button class='btn btn-primary' id='start-btn'>Start</button>
 	  <button class='btn' id='right-answer'>Right Answer</button>
+	  <button class='btn' id='stop-game'>Stop</button>
 	</div>
 	<div id="container">
 	  <div id="VexFlow"></div>
@@ -60,33 +61,15 @@
 
   <div id="settings" class="tab-pane fade">
   	<div>
-	  	<label>Clef:</label>	
-	    <div class="btn-group btn-group-toggle" data-toggle="buttons">
+	  	<label>Choices:</label>	
+	    <div id="choices" class="btn-group btn-group-toggle" data-toggle="buttons">
 
 		  <label class="btn btn-secondary active">
-		    <input type="radio" name="options" id="option1" autocomplete="off" checked> G-Clef
+		    <input type="radio" name="options" id="treble" autocomplete="off" checked> Right Hand / G-Clef
 		  </label>
 		  <label class="btn btn-secondary">
-		    <input type="radio" name="options" id="option2" autocomplete="off"> F-Clef
+		    <input type="radio" name="options" id="bass" autocomplete="off"> Left Hand / F-Clef
 		  </label>
-
-		</div>
-	</div>
-
-	<div>
-		<label>Hand:</label>	
-	    <div class="btn-group btn-group-toggle" data-toggle="buttons">
-
-		  <label class="btn btn-secondary active">
-		    <input type="radio" name="options" id="option1" autocomplete="off" checked> Right Hand 
-		  </label>
-		  <label class="btn btn-secondary">
-		    <input type="radio" name="options" id="option2" autocomplete="off"> Left Hand
-		  </label>
-		  <label class="btn btn-secondary">
-		    <input type="radio" name="options" id="option2" autocomplete="off"> Both
-		  </label>
-
 		</div>
 	</div>
 

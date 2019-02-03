@@ -1,111 +1,37 @@
-// Basic setup boilerplate for using VexFlow with the SVG rendering context:
 VF = Vex.Flow;
-
-// Create an SVG renderer and attach it to the DIV element named "boo".
 var div = document.getElementById("VexFlow");
-console.log(div);
 var renderer = new VF.Renderer(div, VF.Renderer.Backends.SVG);
-
-// Configure the rendering context.
 renderer.resize(500, 500);
 var context = renderer.getContext();
-
-// A tickContext is required to draw anything that would be placed
-// in relation to time/rhythm, including StaveNote which we use here.
-// In real music, this allows VexFlow to align notes from multiple
-// voices with different rhythms horizontally. Here, it doesn't do much
-// for us, since we'll be animating the horizontal placement of notes, 
-// but we still need to add our notes to a tickContext so that they get
-// an x value and can be rendered.
-//
-// If we create a voice, it will automatically apply a tickContext to our
-// notes, and space them relative to each other based on their duration &
-// the space available. We definitely do not want that here! So, instead
-// of creating a voice, we handle that part of the drawing manually.
 var tickContext = new VF.TickContext();
 
-// Create a stave of width 10000 at position 10, 40 on the canvas.
 var stave = new VF.Stave(10, 10, 10000)
 .addClef('treble');
-
-// Connect it to the rendering context and draw!
 stave.setContext(context).draw();
 
 var durations = ['8', '4', '2', '1'];
-
-// var notes = [
-// 	['c', '#', '4'],
-// 	['e', 'b', '5'],
-// 	['g', '', '5'],
-// 	['d', 'b', '4'],
-// 	['b', 'bb', '3'],
-// 	['a', 'b', '4'],
-// 	['f', 'b', '5'],
-// ].map(([letter, acc, octave]) => {
-// 	const note = new VF.StaveNote({
-//     clef: 'treble',
-//     keys: [`${letter}${acc}/${octave}`],
-//     duration: durations[Math.floor(Math.random()*durations.length)],
-//   })
-//   .setContext(context)
-//   .setStave(stave);
-
-//   // If a StaveNote has an accidental, we must render it manually.
-//   // This is so that you get full control over whether to render
-//   // an accidental depending on the musical context. Here, if we
-//   // have one, we want to render it. (Theoretically, we might
-//   // add logic to render a natural sign if we had the same letter
-//   // name previously with an accidental. Or, perhaps every twelfth
-//   // note or so we might render a natural sign randomly, just to be
-//   // sure our user who's learning to read accidentals learns
-//   // what the natural symbol means.)
-//   if(acc) note.addAccidental(0, new VF.Accidental(acc));
-// 	tickContext.addTickable(note)
-// 	return note;
-// });
-
-// // The tickContext.preFormat() call assigns x-values (and other
-// // formatting values) to notes. It must be called after we've 
-// // created the notes and added them to the tickContext. Or, it
-// // can be called each time a note is added, if the number of 
-// // notes needed is not known at the time of bootstrapping.
-// //
-// // To see what happens if you put it in the wrong place, try moving
-// // this line up to where the TickContext is initialized, and check
-// // out the error message you get.
-// //
-// // tickContext.setX() establishes the left-most x position for all
-// // of the 'tickables' (notes, etc...) in a context.
 // tickContext.preFormat().setX(400);
 
-// This will contain any notes that are currently visible on the staff,
-// before they've either been answered correctly, or plumetted off
-// the staff when a user fails to answer them correctly in time.
-// TODO: Add sound effects.
 const visibleNoteGroups = [];
 
 note_values = ['a','b','c','d','e','f','g']
 accidental_values = ['', '#', 'b', 'bb',]
 octaves = ['4','5']
 
-
-
-
-
-// Add a note to the staff from the notes array (if there are any left).
 document.getElementById('start-btn').addEventListener('click', (e) => {
 
-	setInterval(function(){ 
+  console.log("started");
 
-		var letter = note_values[Math.floor(Math.random()*note_values.length)];
+	var renderVar = setInterval(function(){ 
+
+	var letter = note_values[Math.floor(Math.random()*note_values.length)];
 	var accidental = accidental_values[Math.floor(Math.random()*accidental_values.length)];
 	var octave = octaves[Math.floor(Math.random()*octaves.length)];
-
-	console.log(letter, accidental,octave);
 
  	var note = new VF.StaveNote({
  		clef: "treble", keys: [letter+accidental+'/'+octave], duration: "4" 
  	});
+    console.log(note);
       
       if (accidental != "") {
       	note.addAccidental(0, new VF.Accidental(accidental))
@@ -115,8 +41,7 @@ document.getElementById('start-btn').addEventListener('click', (e) => {
 
       tickContext.addTickable(note)
 
-      console.log(note);
-	tickContext.preFormat().setX(400);
+	   tickContext.preFormat().setX(400);
 	// note = notes.shift();
 	// if(!note) return;
   const group = context.openGroup();
@@ -144,6 +69,35 @@ document.getElementById('start-btn').addEventListener('click', (e) => {
 	}, 5000); // 5000 is the time 
 
 
+  document.getElementById('stop-game').addEventListener('click', (e) => {
+      clearInterval(renderVar);
+  });
+
+
+
+  $("#choices :input").change(function() {
+    clearInterval(renderVar);
+
+    $("#VexFlow").empty();
+
+
+    VF = Vex.Flow;
+
+    // Create an SVG renderer and attach it to the DIV element named "boo".
+    var div = document.getElementById("VexFlow");
+    var renderer = new VF.Renderer(div, VF.Renderer.Backends.SVG);
+
+    // Configure the rendering context.
+    renderer.resize(500, 500);
+
+    var context = renderer.getContext();
+
+    var tickContext = new VF.TickContext();
+    var stave = new VF.Stave(10, 10, 10000).addClef('bass');  
+    stave.setContext(context).draw();
+  });
+
+
 	}, 2000);
 
 });
@@ -165,4 +119,3 @@ document.getElementById('right-answer').addEventListener('click', (e) => {
 	// And, finally, we set the note's style.transform property to send it skyward.
 	group.style.transform = `translate(${x}px, -800px)`;
 })
-
