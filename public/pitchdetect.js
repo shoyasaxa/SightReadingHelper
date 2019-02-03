@@ -268,9 +268,9 @@ function detect() {
 		var correct = get_correct_note();
 		var note = noteFromPitch( pitch );
 
-		console.log("Got Note: " + noteStrings[note%12].toLowerCase() + " and expected: " + correct); 
+		//console.log("Got Note: " + noteStrings[note%12].toLowerCase() + " and expected: " + correct); 
 		if(correct === noteStrings[note%12].toLowerCase()) {
-			console.log("CORRECT!!!!!!!!");
+			//console.log("CORRECT!!!!!!!!");
 
 			detect_correct();
 			// add_note();
@@ -281,12 +281,12 @@ function detect() {
 
 
 function get_correct_note(){
-	console.log(notesOnScreen[0]);
-	console.log("key on screen is " + keysOnScreen[0]);
+	//console.log(notesOnScreen[0]);
+	//console.log("key on screen is " + keysOnScreen[0]);
 
 	if (notesOnScreen.length>0){
 		keyAndAccidental = notesOnScreen[0].keys.toString().split('/')[0]; 
-		console.log(keyAndAccidental);
+		//console.log(keyAndAccidental);
 		if(keyAndAccidental.length == 2) {
 			// if second value is b, we have to adjust to represent it with # 
 			if (keyAndAccidental[1] == 'b'){
@@ -314,8 +314,8 @@ function get_correct_note(){
 		return keyAndAccidental; 
 
 	}
-	console.log('no note on screen');
-	console.log(visibleNoteGroups);
+	//console.log('no note on screen');
+	//console.log(visibleNoteGroups);
 	return null
 }
 

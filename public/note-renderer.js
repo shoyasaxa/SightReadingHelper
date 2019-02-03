@@ -20,6 +20,10 @@ octaves = ['4','5']
 
 document.getElementById('start-btn').addEventListener('click', (e) => {
 
+  $('#start-btn').val("Started!").attr('disabled', 'disabled');
+
+  $('#stop-game').prop('disabled', false);
+  
   console.log("started");
 
   notesOnScreen = new Array();
@@ -40,7 +44,7 @@ document.getElementById('start-btn').addEventListener('click', (e) => {
       	note.addAccidental(0, new VF.Accidental(accidental))
       }
       
-      console.log("pushing onto notes on Screen");
+      //console.log("pushing onto notes on Screen");
       notesOnScreen.push(note);
       keysOnScreen.push(note.keys.toString().split('/')[0]);
 
@@ -77,39 +81,38 @@ document.getElementById('start-btn').addEventListener('click', (e) => {
     keysOnScreen.shift();
 
     $("#wrong").html(Number($("#wrong").html()) + 1);
-	}, 5000); // 5000 is the time 
+	}, 5000 ); // 5000 is the time 
 
 
   document.getElementById('stop-game').addEventListener('click', (e) => {
+      $(this).prop('disabled', true);
+      $('#start-btn').prop('disabled', false);
       clearInterval(renderVar);
   });
 
+  // $("#choices :input").change(function() {
+  //   clearInterval(renderVar);
+
+  //   $("#VexFlow").empty();
 
 
-  $("#choices :input").change(function() {
-    clearInterval(renderVar);
+  //   VF = Vex.Flow;
 
-    $("#VexFlow").empty();
+  //   // Create an SVG renderer and attach it to the DIV element named "boo".
+  //   var div = document.getElementById("VexFlow");
+  //   var renderer = new VF.Renderer(div, VF.Renderer.Backends.SVG);
 
+  //   // Configure the rendering context.
+  //   renderer.resize(500, 500);
 
-    VF = Vex.Flow;
+  //   var context = renderer.getContext();
 
-    // Create an SVG renderer and attach it to the DIV element named "boo".
-    var div = document.getElementById("VexFlow");
-    var renderer = new VF.Renderer(div, VF.Renderer.Backends.SVG);
+  //   var tickContext = new VF.TickContext();
+  //   var stave = new VF.Stave(10, 10, 10000).addClef('bass');  
+  //   stave.setContext(context).draw();
+  // });
 
-    // Configure the rendering context.
-    renderer.resize(500, 500);
-
-    var context = renderer.getContext();
-
-    var tickContext = new VF.TickContext();
-    var stave = new VF.Stave(10, 10, 10000).addClef('bass');  
-    stave.setContext(context).draw();
-  });
-
-
-	}, 2000);
+	}, 2000 );
 
 });
 
