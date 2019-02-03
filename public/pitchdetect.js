@@ -320,7 +320,7 @@ function get_correct_note(){
 }
 
 function detect_correct() {
-
+	$("#correct").html(Number($("#correct").html()) + 1);
 	 keysOnScreen.shift();
 
   group = visibleNoteGroups.shift();
