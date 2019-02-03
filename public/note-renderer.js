@@ -15,12 +15,15 @@ var durations = ['8', '4', '2', '1'];
 const visibleNoteGroups = [];
 
 note_values = ['a','b','c','d','e','f','g']
-accidental_values = ['', '#', 'b', 'bb',]
+accidental_values = ['', '#', 'b', ]
 octaves = ['4','5']
 
 document.getElementById('start-btn').addEventListener('click', (e) => {
 
   console.log("started");
+
+  notesOnScreen = new Array();
+  keysOnScreen = new Array();
 
 	var renderVar = setInterval(function(){ 
 
@@ -31,11 +34,15 @@ document.getElementById('start-btn').addEventListener('click', (e) => {
  	var note = new VF.StaveNote({
  		clef: "treble", keys: [letter+accidental+'/'+octave], duration: "4" 
  	});
-    console.log(note);
+    //console.log(note);
       
       if (accidental != "") {
       	note.addAccidental(0, new VF.Accidental(accidental))
       }
+      
+      console.log("pushing onto notes on Screen");
+      notesOnScreen.push(note);
+      keysOnScreen.push(note.keys.toString().split('/')[0]);
 
       note.setContext(context).setStave(stave);
 
@@ -66,6 +73,8 @@ document.getElementById('start-btn').addEventListener('click', (e) => {
 		if(index === -1) return;
 		group.classList.add('too-slow');
     visibleNoteGroups.shift();
+    notesOnScreen.shift(); 
+    keysOnScreen.shift();
 	}, 5000); // 5000 is the time 
 
 
@@ -98,7 +107,7 @@ document.getElementById('start-btn').addEventListener('click', (e) => {
   });
 
 
-	}, 2000);
+	}, 3000);
 
 });
 
@@ -106,6 +115,7 @@ document.getElementById('start-btn').addEventListener('click', (e) => {
 document.getElementById('right-answer').addEventListener('click', (e) => {
 	group = visibleNoteGroups.shift();
   group.classList.add('correct');
+  notesOnScreen.shift();
 	// The note will be somewhere in the middle of its move to the left -- by
   // getting its computed style we find its x-position, freeze it there, and
   // then send it straight up to note heaven with no horizontal motion.

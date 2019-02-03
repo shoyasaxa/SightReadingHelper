@@ -263,14 +263,70 @@ function detect() {
 		//console.log("Failed to get a note?");
 	} else {
 		pitch = ac;
-		var note = noteFromPitch( pitch );
-		// console.log("Got note: " + noteStrings[note%12]);
+		
+		//console.log("Got note: " + noteStrings[note%12]);
 		var correct = get_correct_note();
+		var note = noteFromPitch( pitch );
 
-		if(correct === note) {
+		console.log("Got Note: " + noteStrings[note%12].toLowerCase() + " and expected: " + correct); 
+		if(correct === noteStrings[note%12].toLowerCase()) {
+			console.log("CORRECT!!!!!!!!");
+
 			detect_correct();
 			// add_note();
 		}
 
 	}
+}
+
+
+function get_correct_note(){
+	console.log(notesOnScreen[0]);
+	console.log("key on screen is " + keysOnScreen[0]);
+
+	if (notesOnScreen.length>0){
+		keyAndAccidental = notesOnScreen[0].keys.toString().split('/')[0]; 
+		console.log(keyAndAccidental);
+		if(keyAndAccidental.length == 2) {
+			// if second value is b, we have to adjust to represent it with # 
+			if (keyAndAccidental[1] == 'b'){
+				var flatAndSharpDict = {
+					'cb':'b',
+					'db':'c#',
+					'eb':'d#',
+					'fb':'e',
+					'gb':'f#',
+					'ab':'g#',
+					'bb':'a#',
+				}
+				return flatAndSharpDict[keyAndAccidental];
+			}
+			else if (keyAndAccidental == 'e#'){
+				return 'f';
+			}
+			else if (keyAndAccidental == 'b#') {
+				return 'c';
+			}
+			else {
+				return keyAndAccidental;
+			}
+		}
+		return keyAndAccidental; 
+
+	}
+	console.log('no note on screen');
+	console.log(visibleNoteGroups);
+	return null
+}
+
+function detect_correct() {
+
+	 keysOnScreen.shift();
+
+  group = visibleNoteGroups.shift();
+  group.classList.add('correct');
+  notesOnScreen.shift();
+	const transformMatrix = window.getComputedStyle(group).transform;
+	const x = transformMatrix.split(',')[4].trim();
+	group.style.transform = `translate(${x}px, -800px)`;
 }
