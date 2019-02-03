@@ -100,10 +100,10 @@ function toggleLiveInput() {
     {
     	"audio": {
     		"mandatory": {
-    			"googEchoCancellation": "false",
+    			"googEchoCancellation": "true",
     			"googAutoGainControl": "false",
-    			"googNoiseSuppression": "false",
-    			"googHighpassFilter": "false"
+    			"googNoiseSuppression": "true",
+    			"googHighpassFilter": "true"
     		},
     		"optional": []
     	},
