@@ -75,6 +75,8 @@ document.getElementById('start-btn').addEventListener('click', (e) => {
     visibleNoteGroups.shift();
     notesOnScreen.shift(); 
     keysOnScreen.shift();
+
+    $("#wrong").html(Number($("#wrong").html()) + 1);
 	}, 5000); // 5000 is the time 
 
 
